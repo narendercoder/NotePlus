@@ -1,12 +1,18 @@
-import React from 'react'
-import Notes from '../components/Notes'
+import React, { useState } from "react";
+import Notes from "../components/Notes";
+import Header from "../components/Header";
+import CreateNote from "../components/CreateNote";
 
 const HomePage = () => {
-  return (
-    <div>
-        <Notes/>
-    </div>
-  )
-}
+  const [search, setSearch] = useState("");
 
-export default HomePage
+  return (
+    <div className="w-full overflow-x-hidden">
+      <Header setSearch={(s) => setSearch(s)} />
+      <CreateNote/>
+      <Notes search={search} />
+    </div>
+  );
+};
+
+export default HomePage;

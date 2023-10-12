@@ -1,11 +1,38 @@
+import { ToastContainer } from 'react-toastify';
 import './App.css';
 import HomePage from './Pages/HomePage';
-
+import Footer from './components/Footer';
+import Login from './components/Login';
+import {Routes, Route} from "react-router-dom"
+import Register from './components/Register';
+import NoteModel from './components/NoteModel';
+ 
 function App() {
+
   return (
-    <div className="App p-6  w-screen h-screen">
-     <HomePage/>
-    </div>
+      <>
+       <div className='overflow-x-hidden'>
+          <ToastContainer
+            position="top-right"
+            autoClose={2000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
+            <Routes>
+            <Route path='/' element={<Login/>}/>
+            <Route path='/register' element={<Register/>}/>
+            <Route path='/home' element={<HomePage/>}/>
+            <Route path='/note/:id' element={<NoteModel/>}/>
+            </Routes>
+            <Footer />
+          </div>
+    </>
   );
 }
 
