@@ -20,7 +20,7 @@ function App() {
         pauseOnHover
         theme="light"
       />
-      <div className="overflow-x-hidden">
+      <div className="overflow-x-hidden dark:bg-[#202124]">
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />

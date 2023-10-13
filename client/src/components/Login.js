@@ -52,7 +52,7 @@ const Login = () => {
   // }, [userRegister.userInfo]);
 
   return (
-    <Wrapper className="w-screen flex justify-center items-center text-white px-10">
+    <Wrapper className="w-screen flex justify-center items-center text-black dark:text-white px-10">
       <div className="max-w-sm py-10 flex-1 justify-center text-xs sm:text-sm flex flex-col items-center gap-5 sm:gap-6  h-full">
         <div className="flex justify-center items-center w-full mb-5">
           <img src="logo.png" alt="logo" />

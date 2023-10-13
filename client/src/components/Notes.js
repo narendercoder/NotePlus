@@ -30,11 +30,8 @@ const Notes = ({ search }) => {
                     <div className="text-black dark:text-white text-xl px-5">Loading...</div>
                   ) : (
                     <>
-                      {notes
-                        .filter((filteredNote) =>
-                          filteredNote.title
-                            .toLowerCase()
-                            .includes(search.toLowerCase())
+                      {notes?.filter((filteredNote) =>
+                          filteredNote.title.toLowerCase().includes(search.toLowerCase())
                         )
                         .reverse()
                         .map((note) => (
