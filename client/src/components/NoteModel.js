@@ -71,7 +71,7 @@ const NoteModel = () => {
         <div className="flex min-h-full items-center justify-center p-4 text-center">
           <div
           >
-            <div className="dialog-panel  w-[600px] transform overflow-hidden text-white rounded-lg border border-solid border-[#5f6368] bg-[#202124] text-left align-middle shadow-xl transition-all">
+            <div className="dialog-panel  w-[600px] transform overflow-hidden dark:text-white rounded-lg border border-solid border-[#5f6368] bg-white dark:bg-[#202124] text-left align-middle shadow-xl transition-all">
               <div className='title'>
               <input
                 type='text'
@@ -98,7 +98,7 @@ const NoteModel = () => {
 
               <div className="flex justify-between items-center my-1">
                <Toolbar  id={params.id} deleteHandler={deleteHandler} />
-               <button type="button" onClick={updateHandler} className='mx-2 flex justify-center items-center cursor-pointer rounded-lg text-sm hover:bg-gray-700 px-6 py-2 mr-5'>
+               <button type="button" onClick={updateHandler} className='mx-2 flex justify-center items-center cursor-pointer rounded-lg text-sm bg-yellow-400 px-6 py-2 mr-5'>
                 update
                </button>
               </div>

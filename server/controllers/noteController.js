@@ -21,7 +21,7 @@ const getNoteById = asyncHandler(async (req, res) => {
     res.status(404).json({ message: "Note not found" });
   }
 
-  res.json(note);
+  // res.json(note);
 });
 
 //@description     Create single Note
