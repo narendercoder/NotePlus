@@ -7,7 +7,7 @@ import { deleteNoteAction, updateNoteAction } from '../../actions/notesActions';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment} from 'react'
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 
 const NoteModel = ({openModal}) => {
 
@@ -29,18 +29,22 @@ const NoteModel = ({openModal}) => {
 
   const deleteHandler = async(id) => {
 
-    swal({
+    Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
       icon: "warning",
-      buttons: true,
-      dangerMode: true,
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      reverseButtons: true,
     })
-    .then((willDelete) => {
-      if (willDelete) {
+    .then((result) => {
+      if (result.isConfirmed) {
         dispatch(deleteNoteAction(id));
-      } else {
-        swal("Your note is safe!");
+      }else{
+        Swal.fire({
+          title: 'Your note is safe!',
+        }
+        )
       }
     });
     
@@ -80,7 +84,7 @@ const NoteModel = ({openModal}) => {
   useEffect(()=>{
 
     if(success){
-      swal("Deleted!", "You note has been deleted!", "success").then(()=>{
+      Swal.fire("Deleted!", "You note has been deleted!", "success").then(()=>{
         navigate("/home");
         window.location.reload();
       });

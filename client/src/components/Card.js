@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import swal from 'sweetalert'
+import Swal from 'sweetalert2'
 import { MdDeleteOutline, MdDone } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
@@ -24,18 +24,22 @@ const Card = ({ note }) => {
 
   const deleteHandler = async(id) => {
 
-    swal({
+    Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
       icon: "warning",
-      buttons: true,
-      dangerMode: true,
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      reverseButtons: true
     })
-    .then((willDelete) => {
-      if (willDelete) {
+    .then((result) => {
+      if (result.isConfirmed) {
         dispatch(deleteNoteAction(id));
-      } else {
-        swal("Your note is safe!");
+      }else {
+        Swal.fire({
+          title: 'Your note is safe!',
+        }
+        )
       }
     });
   };
@@ -43,7 +47,7 @@ const Card = ({ note }) => {
 
   useEffect(()=>{
     if(success){
-      swal("Deleted!", "You note has been deleted!", "success").then(()=>{
+      Swal.fire("Deleted!", "You note has been deleted!", "success").then(()=>{
         window.location.reload();
       });
     }

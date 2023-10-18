@@ -41,7 +41,7 @@ h5 {
 }
 
 
-.swal-modal{
+.swal2-modal{
   background-color: ${({ theme }) => theme.colors.bg.primary};
   .swal-icon--success__hide-corners{
      width: 6px;
@@ -50,29 +50,34 @@ h5 {
   .swal-icon--success:after, .swal-icon--success:before {
     background: ${({ theme }) => theme.colors.bg.primary};
   }
-  .swal-title, .swal-text{
+  .swal2-title, .swal-text{
     color: ${({ theme }) => theme.colors.heading.primary} !important;
   }
-  .swal-text{
+  .swal2-html-container{
     font-size: 1.125rem
   }
 }
 
 
-.swal-button{
-  background-color: rgb(59 130 246);
+
+
+.swal2-styled{
   color: white;
   outline: none;
   &:focus{
-    outline: none;
-    box-shadow: none;
+    outline: none !important;
+    box-shadow: none !important;
   }
   &:hover{
     background-color: rgb(59 130 246) !important;
   }
 }
-.swal-button--danger{
-  background-color: rgb(239 68 68);
+.swal2-cancel{
+  background-color: rgb(59 130 246) !important;
+}
+
+.swal2-confirm{
+  background-color: rgb(239 68 68) !important;
   &:hover{
     background-color: rgb(239 68 68) !important;
   }
