@@ -31,13 +31,10 @@ const CreateNote = () => {
     setContent("");
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = async(e) => {
     e.preventDefault();
-    dispatch(createNoteAction(title, content, category));
-    if (!title || !content || !category) {
-      toast.error('Please complete all required fields');
-      return
-    };
+    await dispatch(createNoteAction(title, content, category));
+    if (!title || !content || !category) return
 
     resetHandler();
     window.location.reload();
