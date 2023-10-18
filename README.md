@@ -1,13 +1,20 @@
 # NotePlus
-
+This is Full stack Note Taking application built using MERN Stack that enables users to manage and organize their notes effectively. With an intuitive interface and versatile features, Note Manager simplifies note-taking and organization.
 
 
 ## 📌 Application Features:
 
+- **User Authentication:** Create accounts and log in securely to access your notes.
+- **Create and Edit Notes:**Enables users to create new notes and modify existing ones with titles and content.
+- **Delete Note:** Provides the functionality to delete notes
+- **Theme Toggle:** Enjoy a comfortable reading experience by switching between light and dark themes.
+- **Responsive Design:** User-friendly and responsive interface for a seamless experience on desktop and mobile devices.
 
 
 ## 🚀 Website URL:
-https://bhagavad-gita-gyan.vercel.app/ 
+
+[https://bhagavad-gita-gyan.vercel.app/ ](https://note-plus-react.vercel.app/)
+
 
 ## 📌 Tech Stack
 <div>
@@ -25,7 +32,7 @@ https://bhagavad-gita-gyan.vercel.app/
 
 **Deployment:** Vercel
 
-##📬 Contact
+## 📬 Contact
 
 If you want to contact me, you can reach me through below handles.
 
