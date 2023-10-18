@@ -16,9 +16,7 @@ export const Toolbar = ({note, id, deleteHandler, disable}) => {
      <div className={`${disable ? "hidden" : ""} icon-box mx-2 h-8 w-8 flex justify-center items-center cursor-pointer hover:rounded-full hover:bg-gray-700 hover:text-white`} title='Delete' onClick={() => deleteHandler(id)} >
         <MdDeleteOutline className='icon opacity-0'   />
      </div>
-     <div className='icon-box mx-2 h-8 w-8 flex justify-center items-center cursor-pointer hover:rounded-full hover:bg-gray-700 hover:text-white'>
-
-     </div>
+     
     </div>
   )
 }

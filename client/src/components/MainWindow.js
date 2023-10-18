@@ -4,7 +4,7 @@ import CreateNote from "./CreateNote"
 import Notes from './Notes';
 import styled from 'styled-components';
 
-const MainWindow = ({search}) => {
+const MainWindow = ({search, setSearch}) => {
     const tabIndex = useSelector((state) => state.tabReducer);
   return (
     <Wrapper>
@@ -13,7 +13,7 @@ const MainWindow = ({search}) => {
           <CreateNote />
         </div>
         <div className={tabIndex === 2 ? "tab-pane active" : "tab-pane"}>
-          <Notes search={search} />
+          <Notes search={search} setSearch={setSearch} />
         </div>
         </div>
     </Wrapper>

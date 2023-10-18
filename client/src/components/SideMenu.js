@@ -5,7 +5,7 @@ import {IoMdAdd} from "react-icons/io"
 import {TbNotes} from "react-icons/tb"
 import styled from "styled-components";
 
-const SideMenu = () => {
+const SideMenu = ({openSideMenu, setOpenSideMenu}) => {
 //  const [menuIcon, setMenuIcon] = useState();
   const dispatch = useDispatch();
   const tabIndex = useSelector((state) => state.tabReducer);
@@ -13,7 +13,11 @@ const SideMenu = () => {
   const activeTab = (index) => {
     dispatch(toggleTab(index));
   };
-  console.log(tabIndex)
+
+  const handleClick = (index) =>{
+    activeTab(index+1)
+    setOpenSideMenu(false)
+  }
 
   const sideIconsList = [
     {
@@ -29,8 +33,8 @@ const SideMenu = () => {
   ];
 
   return (
-    <Wrapper className="p-6 dark:text-white w-1/6 h-screen ">
-      <div>
+    <Wrapper className={`${openSideMenu ? "active" : ""} side-menu bg-white dark:bg-[#27282b] dark:text-white absolute lg:w-[20%] lg:relative lg:top-0 lg:left-0 lg:translate-x-0 lg:inline`}>
+      <div className="side-menu-wrapper p-6 h-full">
         <div>
           <ul>
             {sideIconsList.map((items, index) => {
@@ -39,9 +43,9 @@ const SideMenu = () => {
                 key={items.id}
                 className="side-menu-item w-full mb-2 text-xl"
                 title={items.title}
-                onClick={() => activeTab(index+1)}
+                onClick={()=>handleClick(index)}
                 >
-                  <div className={`${index === 0 && tabIndex === 0 ? "nav-link active text-yellow-400" : (tabIndex === (index + 1) ? "nav-link active  text-yellow-400" : "nav-link text-slate-500") } w-full flex  items-center cursor-pointer font-bold px-3 py-2`} >
+                  <div className={`${index === 0 && tabIndex === 0 ? "nav-link active bg-yellow-400 bg-opacity-50 " : (tabIndex === (index + 1) ? "nav-link active bg-opacity-50 bg-yellow-400" : "nav-link dark:text-slate-300") } w-full flex items-center cursor-pointer font-bold px-3 py-2 rounded-xl`} >
                      <items.icon className="icon" />
                      <span className="pl-3">{items.title}</span>
                   </div>
@@ -58,9 +62,16 @@ const SideMenu = () => {
 export default SideMenu;
 
 const Wrapper = styled.div`
-height: calc(100vh - 100px);
-.nav-link.active{
-    background-color: rgba(0,0,0,0.05);
-    border-radius: 10px;
+min-height: 100vh;
+.nav-link{
+  &:hover{
+    background-color: rgba(0,0,0,0.05)
+  }
 }
+.nav-link.active{
+  &:hover{
+    background-color: rgba(250, 204, 21, 0.5);
+  }
+}
+
 `

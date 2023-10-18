@@ -14,42 +14,37 @@ const Login = () => {
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
 
+  console.log(userLogin)
+
 
   const submitHandler = async (e) =>{
     e.preventDefault();
     if (!email || !password ) {
-      // setError("Please enter email and password");
-      toast.error('Please enter email or password');
+      toast.error('Please complete all required fields');
       return;
     }
     else{
       try {
        await dispatch(login(email, password));
-        
+       
       } catch (error) {
-        toast.error('Incorrect email or password');
+        toast.error('Incorrect details');
       }
-      
     }
     
   };
 
+
   useEffect(() => {
     if (userLogin.userInfo) {
       toast.success('login Successfully');
-      navigate("/home");
+      navigate("/home");    
     }
     else if(userLogin.error){
       toast.error(userLogin.error);
     }
   }, [userLogin, navigate])
 
-  // useEffect(() => {
-  //   if (userRegister.userInfo) {
-  //     toast.success('Register Successfully');
-  //     setIsLoggingIn(true);
-  //   }
-  // }, [userRegister.userInfo]);
 
   return (
     <Wrapper className="w-screen flex justify-center items-center text-black dark:text-white px-10">
@@ -104,5 +99,5 @@ const Login = () => {
 export default Login;
 
 const Wrapper = styled.div`
-  height: calc(100vh - 72px);
+  height: calc(100vh - 65px);
 `;

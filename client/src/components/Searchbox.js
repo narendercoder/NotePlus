@@ -4,15 +4,15 @@ import {BiSearch} from "react-icons/bi"
 
 const Searchbox = ({setSearch}) => {
   return (
-    <Wrapper className='search-box relative h-12 ml-14 mr-12 w-full overflow-hidden'>
+    <Wrapper className='search-box relative h-full w-full overflow-hidden bg-gray-100 dark:bg-gray-600  lg:flex'>
      <div className='relative flex items-center text-black dark:text-white'>
         <div className='search-icon flex justify-center items-center '>
-          <span className='icon m-1 rounded-full p-2'>
+          <span className='icon m-1 rounded-full p-1'>
           <BiSearch   size={20} />
           </span>
         </div>
-        <div className='search-input'>
-            <input type="text" placeholder='Search' onChange={(e) => setSearch(e.target.value)} className='text-black dark:text-white' />
+        <div className='search-input w-full'>
+            <input type="text" placeholder='Search' onChange={(e) => setSearch(e.target.value)} className='text-black w-full dark:text-white' />
         </div>
         <div></div>
      </div>
@@ -25,7 +25,7 @@ export default Searchbox;
 const Wrapper = styled.div`
 max-width: 720px;
 border-radius: 8px;
-background: rgba(241,243,244,.24);
+
 .search-icon{
     position: absolute;
     left: 0;
@@ -48,7 +48,7 @@ background: rgba(241,243,244,.24);
     outline: none;
     height: 46px;
     width: 100%;
-    padding: 11px 0;
+    padding: 4px 0;
    }
 }
 `

@@ -113,5 +113,5 @@ const Register = () => {
 export default Register;
 
 const Wrapper = styled.div`
-  height: calc(100vh - 72px);
+  height: calc(100vh - 65px);
 `;

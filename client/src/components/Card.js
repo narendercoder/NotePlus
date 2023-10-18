@@ -1,50 +1,87 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-// import NoteModel from "./NoteModel";
-// import { Toolbar } from "./Toolbar";
+import swal from 'sweetalert'
 import { MdDeleteOutline, MdDone } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import { deleteNoteAction } from "../actions/notesActions";
-import { useDispatch } from "react-redux";
+
 import {FiEdit} from "react-icons/fi"
 import {LiaCalendarSolid} from "react-icons/lia"
+import Markdown from 'react-markdown'
+import { notesLabel } from "../config/notesLabels";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteNoteAction } from "../actions/notesActions";
 
 const Card = ({ note }) => {
   const navigate = useNavigate();
-  const dispatch =  useDispatch();
-
+  const noteDelete = useSelector((state)=>state.noteDelete)
+  const {success} = noteDelete;
+  
   const openNote = (val) => {
     navigate(`/note/${val}`)
   };
 
+  const dispatch =  useDispatch();
 
-  const deleteHandler = (id) => {
-    if (window.confirm("Are you sure?")) {
-      dispatch(deleteNoteAction(id));
-      window.location.reload();
-    }
+  const deleteHandler = async(id) => {
+
+    swal({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        dispatch(deleteNoteAction(id));
+      } else {
+        swal("Your note is safe!");
+      }
+    });
   };
 
-//bg-[#202124]
+
+  useEffect(()=>{
+    if(success){
+      swal("Deleted!", "You note has been deleted!", "success").then(()=>{
+        window.location.reload();
+      });
+    }
+  }, [success])
+
 
   return (
-    <Wrapper className={`relative basis-1/3 max-w-[33.33333%] p-4 flex justify-center items-center rounded-lg`}>
-      
+    <Wrapper className={`relative max-w-full p-4 flex justify-center items-center rounded-lg`}>   
       <div className="relative pt-5 px-4 card  cursor-pointer w-full h-full flex flex-col justify-between items-center text-black dark:text-white border rounded-lg border-solid border-[#5f6368] ">
       <div className="selected-box hidden justify-center items-center rounded-full h-[20px] absolute z-50 w-[20px] bg-black dark:bg-white text-white dark:text-black left-0 top-0 -translate-x-2 -translate-y-2">
         <MdDone />
       </div>
-        <div className="min-h-[60px] w-full" onClick={() => openNote(note._id)}>
-          <div className="title min-h-[38px] text-xl">
-            <h1>{note.title}</h1>
+        <div className="min-h-[60px] w-full" >
+         {/* show category */}
+          <div className="note-category min-h-[38px] text-xl mb-2">
+           {
+            notesLabel.map((item)=>{
+              return (
+                item.name === note.category ? 
+                <span key={item.name} className={`${item.color} rounded-full px-5 py-2 `}>{note.category}</span> 
+                : 
+                ""
+                )
+            })
+           }
           </div>
-          <div className="desc py-5 my-1 min-h-[170px] text-xl tracking-[.01428571em] break-words">
-            <p>{note.content}</p>
+          {/* show title */}
+          <div className="title min-h-[38px] text-xl f">
+            <h1 className="font-bold capitalize">{note.title}</h1>
+          </div>
+          {/* show content */}
+          <div className="desc pb-5 my-1 min-h-[170px]  text-[#768492] tracking-[.01428571em] break-words">
+            <Markdown>{note.content}</Markdown>
           </div>
         </div>
         <div className="px-3 py-1 flex justify-between items-center w-full">
           <div className="flex text-xl">
-          <div className="py-3 mr-2 text-green-500" title="Edit" >
+          <div className="py-3 mr-2 text-green-500" title="Edit" onClick={() => openNote(note._id)} >
           <FiEdit/>
           </div>
           <div className="py-3 text-red-500" title="Delete" onClick={()=>deleteHandler(note._id)} >
