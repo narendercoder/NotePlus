@@ -5,7 +5,7 @@ This is Full stack Note Taking application built using MERN Stack that enables u
 ## 📌 Application Features:
 
 - **User Authentication:** Create accounts and log in securely to access your notes.
-- **Create and Edit Notes:**Enables users to create new notes and modify existing ones with titles and content.
+- **Create and Edit Notes:** Enables users to create new notes and modify existing ones with titles and content.
 - **Delete Note:** Provides the functionality to delete notes
 - **Theme Toggle:** Enjoy a comfortable reading experience by switching between light and dark themes.
 - **Responsive Design:** User-friendly and responsive interface for a seamless experience on desktop and mobile devices.
