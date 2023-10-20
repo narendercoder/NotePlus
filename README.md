@@ -13,7 +13,7 @@ This is Full stack Note Taking application built using MERN Stack that enables u
 
 ## 🚀 Website URL:
 
-[https://bhagavad-gita-gyan.vercel.app/ ](https://note-plus-react.vercel.app/)
+[https://note-plus-react.vercel.app/ ](https://note-plus-react.vercel.app/)
 
 
 ## 📌 Tech Stack
