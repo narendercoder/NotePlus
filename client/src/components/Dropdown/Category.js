@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { notesLabel } from "../../config/notesLabels"
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCategory } from '../../actions/categoryActions';
+import {BiChevronDown} from "react-icons/bi"
 
 const Category = ({setCategory}) => {
     const dispatch = useDispatch();
@@ -50,9 +51,12 @@ const Category = ({setCategory}) => {
         <div className="menu-list-right w-fit bg-gray-100 dark:bg-gray-600 rounded-lg">
           <Menu as="div" className="relative text-left ">
             <div className="flex items-center">
-              <Menu.Button className="menu-button capitalize text-black dark:text-white inline-flex justify-center rounded-md  px-4 py-2 text-sm font-medium ">
+              <Menu.Button className="menu-button capitalize text-black dark:text-white inline-flex justify-center items-center rounded-md  px-4 py-2 text-sm font-medium ">
                 {/* {DefaultLanguage} */}
                 {selectedcategory}
+                <span className='ml-2'>
+                <BiChevronDown size={20}/>
+                </span>
                 {/* <BiChevronDown
               className="ml-2 -mr-1 h-5 w-5"
               aria-hidden="true"

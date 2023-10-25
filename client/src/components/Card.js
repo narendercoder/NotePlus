@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import Swal from 'sweetalert2'
 import { MdDeleteOutline, MdDone } from "react-icons/md";
@@ -9,12 +9,12 @@ import {LiaCalendarSolid} from "react-icons/lia"
 import Markdown from 'react-markdown'
 import { notesLabel } from "../config/notesLabels";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteNoteAction } from "../actions/notesActions";
+import { deleteNoteAction, listNotes } from "../actions/notesActions";
 
 const Card = ({ note }) => {
   const navigate = useNavigate();
   const noteDelete = useSelector((state)=>state.noteDelete)
-  const {success} = noteDelete;
+  const {success: successDelete} = noteDelete;
   
   const openNote = (val) => {
     navigate(`/note/${val}`)
@@ -34,7 +34,13 @@ const Card = ({ note }) => {
     })
     .then((result) => {
       if (result.isConfirmed) {
-        dispatch(deleteNoteAction(id));
+        dispatch(deleteNoteAction(id)).then(()=>{
+          if(successDelete){
+            Swal.fire("Deleted!", "You note has been deleted!", "success").then(()=>{
+              dispatch(listNotes());
+             });
+          }
+        });
       }else {
         Swal.fire({
           title: 'Your note is safe!',
@@ -45,13 +51,6 @@ const Card = ({ note }) => {
   };
 
 
-  useEffect(()=>{
-    if(success){
-      Swal.fire("Deleted!", "You note has been deleted!", "success").then(()=>{
-        window.location.reload();
-      });
-    }
-  }, [success])
 
 
   return (
@@ -83,16 +82,20 @@ const Card = ({ note }) => {
             <Markdown>{note.content}</Markdown>
           </div>
         </div>
-        <div className="px-3 py-1 flex justify-between items-center w-full">
-          <div className="flex text-xl">
-          <div className="py-3 mr-2 text-green-500" title="Edit" onClick={() => openNote(note._id)} >
-          <FiEdit/>
+        <div className="py-1 flex justify-between items-center w-full">
+          <div className="flex text-2xl">
+          <div className=" mr-2 flex  " title="Edit" onClick={() => openNote(note._id)} >
+          <span className="p-2 text-green-500 hover:text-white hover:bg-green-500 rounded-full">
+          <FiEdit size={15}/>
+          </span>
           </div>
-          <div className="py-3 text-red-500" title="Delete" onClick={()=>deleteHandler(note._id)} >
-          <MdDeleteOutline className='icon'   />
+          <div className=" flex" title="Delete" onClick={()=>deleteHandler(note._id)} >
+          <span className="p-2 text-red-500 hover:text-white hover:bg-red-500 rounded-full">
+          <MdDeleteOutline className='icon' size={15} />
+          </span>
           </div>
           </div>
-          <div className="flex items-center text-base font-bold tracking-wide">
+          <div className="flex items-center text-base font-bold tracking-wide pr-3">
              <span className="py-3 mr-2 text-xl text-blue-500"><LiaCalendarSolid/></span>
             <span>{note.createdAt.substring(0, 10)}</span>
           </div>

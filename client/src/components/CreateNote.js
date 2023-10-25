@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Toolbar } from "./Toolbar";
-import { useDispatch } from "react-redux";
-import { createNoteAction } from "../actions/notesActions";
+import { useDispatch, useSelector } from "react-redux";
+import { createNoteAction, listNotes } from "../actions/notesActions";
 import Markdown from "react-markdown";
 import Category from "./Dropdown/Category";
 import { notesLabel } from "../config/notesLabels";
-import { toast } from "react-toastify";
+import Swal from "sweetalert2";
+// import { useNavigate } from "react-router-dom";
+import { toggleTab } from "../actions/tabAction";
 
 const CreateNote = () => {
   const textAreaRef = useRef(null);
@@ -14,6 +16,9 @@ const CreateNote = () => {
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("");
   const dispatch = useDispatch();
+  const noteCreate =  useSelector((state)=>  state.noteCreate)
+  const {success: successCreate} = noteCreate;
+  // const navigate = useNavigate();
   //   const noteCreate = useSelector((state) => state.noteCreate);
   //   const { loading, error, note } = noteCreate;
 
@@ -37,7 +42,6 @@ const CreateNote = () => {
     if (!title || !content || !category) return
 
     resetHandler();
-    window.location.reload();
   };
 
   useEffect(() => {}, []);
@@ -45,6 +49,15 @@ const CreateNote = () => {
   useEffect(() => {
     textAreaRef.current.style.height = textAreaRef.current.scrollHeight + "px";
   }, [content]);
+
+  useEffect(()=>{
+    if(successCreate){
+      Swal.fire("sucess!", "Your note created successfully", "success").then(()=>{
+        dispatch(listNotes());
+        dispatch(toggleTab(2));
+      });
+    }
+  }, [successCreate, dispatch])
 
 
   return (
@@ -110,7 +123,8 @@ const CreateNote = () => {
                     <button
                       type="btn"
                       onClick={submitHandler}
-                      className="mr-3 py-3 px-5 rounded-lg h-full bg-yellow-400 text-black"
+                      className={`submit-btn  mr-3 py-3 px-5 rounded-lg h-full bg-yellow-400 text-black`}
+                      disabled={!title || !content ? true : false}
                     >
                       Create Note
                     </button>
@@ -180,6 +194,9 @@ const Wrapper = styled.div`
     .icon {
       opacity: 1;
     }
+  }
+  button[disabled]{
+      opacity: 0.5;
   }
   .note-preview{
     box-shadow: 0 0 10px rgba(0,0,0,0.1);

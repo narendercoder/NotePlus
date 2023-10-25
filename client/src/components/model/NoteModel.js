@@ -3,7 +3,7 @@ import { Toolbar } from '../Toolbar';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import { deleteNoteAction, updateNoteAction } from '../../actions/notesActions';
+import { deleteNoteAction, listNotes, updateNoteAction } from '../../actions/notesActions';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment} from 'react'
@@ -20,12 +20,12 @@ const NoteModel = ({openModal}) => {
   const navigate = useNavigate();
 
   const noteDelete = useSelector((state)=>state.noteDelete)
-  const {success} = noteDelete;
+  const {success: DeleteSuccess} = noteDelete;
 
 
-  const closeModal = () =>{
+  const closeModal = useCallback(() =>{
     navigate("/home");
-  }
+  }, [navigate])
 
   const deleteHandler = async(id) => {
 
@@ -39,7 +39,14 @@ const NoteModel = ({openModal}) => {
     })
     .then((result) => {
       if (result.isConfirmed) {
-        dispatch(deleteNoteAction(id));
+        dispatch(deleteNoteAction(id)).then(()=>{
+          if(DeleteSuccess){
+            Swal.fire("Deleted!", "You note has been deleted!", "success").then(()=>{
+              closeModal();
+              dispatch(listNotes());
+             });
+          }
+        });
       }else{
         Swal.fire({
           title: 'Your note is safe!',
@@ -73,23 +80,17 @@ const NoteModel = ({openModal}) => {
 
   const updateHandler = async (e) => {
     e.preventDefault();
-    await dispatch(updateNoteAction(params.id, title, content, category));
+
+    await dispatch(updateNoteAction(params.id, title, content, category)).then(()=>{
+      Swal.fire("Updated", "Your note is updated successfully", "success")
+    });
     if (!title || !content || !category) return;
 
     resetHandler();
-    navigate("/home");
-    window.location.reload();
+    dispatch(listNotes());
+    closeModal();
   };
 
-  useEffect(()=>{
-
-    if(success){
-      Swal.fire("Deleted!", "You note has been deleted!", "success").then(()=>{
-        navigate("/home");
-        window.location.reload();
-      });
-    }
-  }, [success, navigate])
 
     
   return (

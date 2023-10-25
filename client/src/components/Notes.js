@@ -40,7 +40,7 @@ const Notes = ({ search, setSearch }) => {
                     </div>
                   ) : <>
                     {
-                      notes.length === 0 ?
+                      notes?.length === 0 ?
                       <div className="text-[#768492]  flex flex-col justify-center items-center w-full h-full">
                          <img src="notes-with-man.png" alt="illustration" className="py-3" />
                         <h1 className="font-bold py-3 text-2xl dark:text-white">It's Empty</h1>

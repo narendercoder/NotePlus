@@ -8,6 +8,7 @@ import { GlobalStyle } from "./GlobalStyle/GlobalStyle";
 import { ThemeProvider } from "styled-components";
 import { useEffect, useState } from "react";
 import Preloader from "./components/Preloader";
+import ErrorPage from "./components/ErrorPage";
 
 function App() {
   const [loading, setloading] = useState(true);
@@ -81,6 +82,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/home" element={<HomePage handleThemeSwitch={handleThemeSwitch} openModal={false} />} />
           <Route path="/note/:id" element={<HomePage handleThemeSwitch={handleThemeSwitch} openModal={true}/>} />
+          <Route path="/*" element={<ErrorPage />} />
         </Routes>
         <Footer />
       </div>

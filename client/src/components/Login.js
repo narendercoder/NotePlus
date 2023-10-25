@@ -14,7 +14,6 @@ const Login = () => {
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
 
-  console.log(userLogin)
 
 
   const submitHandler = async (e) =>{
@@ -25,7 +24,11 @@ const Login = () => {
     }
     else{
       try {
-       await dispatch(login(email, password));
+       await dispatch(login(email, password)).then(() => {
+          toast.success('login Successfully');
+        navigate("/home");  
+        }
+       );
        
       } catch (error) {
         toast.error('Incorrect details');
@@ -36,11 +39,7 @@ const Login = () => {
 
 
   useEffect(() => {
-    if (userLogin.userInfo) {
-      toast.success('login Successfully');
-      navigate("/home");    
-    }
-    else if(userLogin.error){
+    if(userLogin.error){
       toast.error(userLogin.error);
     }
   }, [userLogin, navigate])
