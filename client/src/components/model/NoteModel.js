@@ -24,7 +24,7 @@ const NoteModel = ({openModal}) => {
 
 
   const closeModal = useCallback(() =>{
-    navigate("/home");
+    navigate("/");
   }, [navigate])
 
   const deleteHandler = async(id) => {
