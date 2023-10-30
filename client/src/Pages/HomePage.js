@@ -6,23 +6,34 @@ import SideMenu from "../components/SideMenu";
 import MainWindow from "../components/MainWindow";
 import styled from "styled-components";
 import NoteModel from "../components/model/NoteModel";
+import { useSelector } from "react-redux";
+import Login from "../components/Login";
 
 const HomePage = ({openModal, handleThemeSwitch}) => {
   const [search, setSearch] = useState("");
   const [openSideMenu, setOpenSideMenu] = useState(false);
+  const userLogin = useSelector((state) => state.userLogin);
 
   return (
+  <>
+     {
+    !userLogin.userInfo ? <>
+      <Login />
+    </>
+    :
     <Wrapper className="w-full overflow-x-hidden dark:bg-[#202124]">
-      <Header handleThemeSwitch={handleThemeSwitch} setSearch={(s) => setSearch(s)} openSideMenu={openSideMenu} setOpenSideMenu={setOpenSideMenu} />
-      <div className="relative flex justify-between">
-        <SideMenu  openSideMenu={openSideMenu} setOpenSideMenu={setOpenSideMenu} />
-        <div className={`${openSideMenu? "active" : ""} bg-overlay`}></div>
-        <div className="lg:w-10/12 w-full ">
-         <MainWindow search={search} setSearch={(s) => setSearch(s)} />
-         <NoteModel openModal={openModal} />
-        </div>
+    <Header handleThemeSwitch={handleThemeSwitch} setSearch={(s) => setSearch(s)} openSideMenu={openSideMenu} setOpenSideMenu={setOpenSideMenu} />
+    <div className="relative flex justify-between">
+      <SideMenu  openSideMenu={openSideMenu} setOpenSideMenu={setOpenSideMenu} />
+      <div className={`${openSideMenu? "active" : ""} bg-overlay`}></div>
+      <div className="lg:w-10/12 w-full ">
+       <MainWindow search={search} setSearch={(s) => setSearch(s)} />
+       <NoteModel openModal={openModal} />
       </div>
-    </Wrapper>
+    </div>
+  </Wrapper>
+   }
+  </>
   );
 };
 

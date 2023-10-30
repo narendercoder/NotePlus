@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const ErrorPage = () => {
   const navigate = useNavigate();
   const backHandler = () =>{
-     navigate("home");
+     navigate("/");
   }
   return (
     <Wrapper className='w-screen dark:text-white'>

@@ -16,7 +16,8 @@ const Register = () => {
   const dispatch = useDispatch();
   const userRegister = useSelector((state) => state.userRegister);
 
-  const submitHandler = async () => {
+  const submitHandler = async (e) => {
+    e.preventDefault();
     if (password !== confirmpassword) {
         toast.error("Password and Confirm Password Does not match", {
           autoClose: 1000,
@@ -57,6 +58,12 @@ const Register = () => {
         <h1 className="font-extrabold select-none text-2xl sm:text-4xl uppercase">
           register
         </h1>
+        <form
+          className="register-form flex flex-col items-center gap-5 sm:gap-6 w-full"
+          onSubmit={submitHandler}
+          noValidate="novalidate"
+          autoComplete="off"
+         >
         <input
           type="text"
           value={name}
@@ -94,11 +101,12 @@ const Register = () => {
           className=" bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-transparent dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         />
         <button
-          onClick={submitHandler}
+          type="submit"
           className="w-full max-w-[20ch] border border-yellow-500 border-solid py-2 duration-300 relative after:absolute after:top-0 after:right-full after:bg-yellow-500 after:z-10 after:w-full after:h-full overflow-hidden hover:after:translate-x-full after:duration-300 hover:text-white"
         >
           <h2 className="relative z-20">Register</h2>
         </button>
+        </form>
         <h2 className="duration-300  cursor-pointer">
           Already Registered?{" "}
           <Link to="/" className="hover:underline text-yellow-500">
