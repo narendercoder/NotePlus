@@ -11,11 +11,12 @@ const Notes = ({ search, setSearch }) => {
 
   const noteList = useSelector((state) => state.noteList);
   const { loading, notes } = noteList;
-
+  const noteDelete = useSelector((state)=>state.noteDelete)
+  const {loading: loadingDelete, success: successDelete} = noteDelete;
 
   useEffect(() => {
     dispatch(listNotes());
-  }, [dispatch]);
+  }, [dispatch, successDelete]);
 
   return (
     <Wrapper className="relative flex flex-col lg:flex-row w-full mx-auto dark:bg-black bg-gray-100 p-6 ">
@@ -34,15 +35,15 @@ const Notes = ({ search, setSearch }) => {
               {/* <div className="flex flex-wrap justify-between"></div> */}
               <div className="note-content notes-tab-content h-full ">
                 <div id="note1" className="notes-tab-pane py-6 w-full h-full">
-                  {loading ? (
+                  {loading || loadingDelete  ?
                     <div className="text-[#768492] text-xl px-5 flex justify-center items-center">
                       Loading...
                     </div>
-                  ) : <>
+                    : <>
                     {
                       notes?.length === 0 ?
                       <div className="text-[#768492]  flex flex-col justify-center items-center w-full h-full">
-                         <img src="notes-with-man.png" alt="illustration" className="py-3" />
+                         <img src="./notes-with-man.png" alt="illustration" className="py-3" />
                         <h1 className="font-bold py-3 text-2xl dark:text-white">It's Empty</h1>
                         <span className="text-xl w-64 text-center">Hmm.. looks like you don't have any notes</span>
                         </div>
@@ -64,7 +65,9 @@ const Notes = ({ search, setSearch }) => {
                       </Masonry>
                     </ResponsiveMasonry>
                     }
-                  </>}
+                    </>
+                  }
+
                 </div>
               </div>
             </div>
